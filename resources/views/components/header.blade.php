@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -16,6 +17,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 </head>
+
 <body>
     <nav class="top-nav">
         <div class="top-nav-title">
@@ -24,11 +26,13 @@
         <div class="top-nav-links">
             <a rel="noopener" href="/login">Home</a>
             <a rel="noopener" href="/users">Users</a>
+            <a rel="noopener" href="/blogs">Blogs</a>
         </div>
         <div>
             <h6 class="primary-text">
-                Hello,  
-                <a href="/users/edit/1" style="text-decoration:underline;">{{$name}}</a>                </h6>
+                Hello,
+                <a href="/users/edit/1" style="text-decoration:underline;">{{$name}}</a>
+            </h6>
         </div>
     </nav>
     <hr>

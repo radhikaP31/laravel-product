@@ -36,7 +36,7 @@ class UserController extends Controller
             return view('exception.relationnot');
 
         } catch(\Exception $exception){
-            dd(get_class($exception));
+
             return view('exception.somethingwrong');
 
         }
@@ -102,9 +102,21 @@ class UserController extends Controller
             $users->about = $request->about;
             $users->rating = $request->rating;
             $users->role_id = $request->role_id;
-            $users->profile_picture = $_FILES['profile_picture']['name'];
+            $users->profile_picture = $request->profile_picture->getClientOriginalName();
             $users->password = Hash::make($request->password);
-            $users->save();
+            $result = $users->save();
+
+            if($request->profile_picture->getClientOriginalName()){
+
+                //upload profile picture
+                $imageName = $users->id.'_'.$request->profile_picture->getClientOriginalName();
+                $request->profile_picture->storeAs('public/images/users', $imageName);
+    
+                $user_data = User::find($users->id);
+                $user_data->profile_picture = $imageName;
+                $result = $user_data->save();
+
+            }
 
             if($result){
 
@@ -156,9 +168,18 @@ class UserController extends Controller
             $users->about = $request->about;
             $users->rating = $request->rating;
             $users->role_id = $request->role_id;
-            $users->profile_picture = $_FILES['profile_picture']['name'];
-            $users->password = Hash::make($request->password);
             $result = $users->save();
+
+            if ($request->profile_picture->getClientOriginalName()) {
+
+                //upload profile picture
+                $imageName = $id . '_' . $request->profile_picture->getClientOriginalName();
+                $request->profile_picture->storeAs('public/images/users', $imageName);
+
+                $user_data = User::find($id);
+                $user_data->profile_picture = $imageName;
+                $result = $user_data->save();
+            }
             
             if($result){
 

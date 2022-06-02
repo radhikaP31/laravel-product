@@ -1,7 +1,7 @@
 <x-header componentName="John" /> 
 <div class="container" style="margin-top: 5%;">
     <div class="col-md-12 content">
-        <h1>Hi {{ $user->name }}</h1>
+        <h1>{{ $user->name }}</h1>
         <table class="center">
             <tbody>
                 <tr>

@@ -6,6 +6,9 @@ use App\Http\Middleware\VerifyCsrfToken;
 use App\Http\Middleware\CheckRole;
 use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\LoginController;
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -70,15 +73,40 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/users/view/{id}', 'view'); //Display user profile by user id
     Route::any('/users/add', 'add'); //Create user profile
     Route::any('/users/edit/{id}', 'edit'); //Edit user profile by user id
-    Route::any('/users/delete/{id}', 'delete'); //Edit user profile by user id
+    Route::any('/users/delete/{id}', 'delete'); //Delete user profile by user id
     
     Route::get('/practice/{name}', 'practice'); //Display practice data
 
 });
 
+//Route group for BlogsController
+Route::controller(BlogsController::class)->group(function () {
+    //Route::controller(BlogsController::class)->group(['middleware' => 'Authenticate'],function () {
+
+    Route::get('/blogs', 'index')->name('blog_index'); //Display all blogs
+    Route::get('/blogs/view/{id}', 'view')->name('blog_view'); //Display blog by blog id
+    Route::any('/blogs/add', 'add')->name('blog_add'); //Create blog
+    Route::any('/blogs/edit/{id}', 'edit')->name('blog_edit'); //Edit blog by blog id
+    Route::any('/blogs/delete/{id}', 'delete')->name('blog_delete'); //Delete blog by blog id
+
+});
+
+//Route group for LoginController
+Route::controller(LoginController::class)->group(function () {
+
+    Route::get('/login', 'index')->name('login'); //Login form
+    Route::any('/login/authenticate', 'authenticate')->name('login_auth'); //Login form
+
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 
 //fallback route
 Route::fallback(function () {
     return view('welcome');
 });
+
+require __DIR__ . '/auth.php';

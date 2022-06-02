@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Define primary and secondary color variable */
 :root {
     --primary_color: #035891;
@@ -34,7 +38,6 @@ h1, h2, h3, h4, h5, h6 {
 
 a {
     color:var(--primary_color);
-    -webkit-transition:all 0.2s linear;
     transition:all 0.2s linear;
 }
 
@@ -42,7 +45,6 @@ a:hover,
 a:focus,
 a:active  {
     color:#2a6496;
-    -webkit-transition:all 0.2s easeout;
     transition:all 0.2s ease-out;
 }
 
