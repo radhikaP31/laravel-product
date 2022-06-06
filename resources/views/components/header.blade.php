@@ -24,15 +24,36 @@
             <h1><a href="#">Laravel</a></h1>
         </div>
         <div class="top-nav-links">
-            <a rel="noopener" href="/login">Home</a>
+            <!-- <a rel="noopener" href="/login">Home</a>
+            <a rel="noopener" href="/login">Register</a>
             <a rel="noopener" href="/users">Users</a>
             <a rel="noopener" href="/blogs">Blogs</a>
+            <a href="/logout">Logout</a> -->
+            <!-- Navigation Links -->
+            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                    {{ __('Register') }}
+                </x-nav-link>
+                <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    {{ __('Dashboard') }}
+                </x-nav-link>
+                <x-nav-link :href="route('user_index')" :active="request()->routeIs('users')">
+                    {{ __('Users') }}
+                </x-nav-link>
+                <x-nav-link :href="route('blog_index')" :active="request()->routeIs('blogs')">
+                    {{ __('Blogs') }}
+                </x-nav-link>
+                <!-- <x-nav-link :href="route('logout')" :active="request()->routeIs('logout')">
+                    {{ __('Logout') }}
+                </x-nav-link> -->
+            </div>
+
         </div>
-        <div>
+        <!-- <div>
             <h6 class="primary-text">
                 Hello,
                 <a href="/users/edit/1" style="text-decoration:underline;">{{$name}}</a>
             </h6>
-        </div>
+        </div> -->
     </nav>
     <hr>

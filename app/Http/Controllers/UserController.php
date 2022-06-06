@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         try {
 
-            $users = DB::table('users')->paginate(5);
+            $users = User::paginate(5);
             return view('user.index', [
                 'users' => $users
             ]);
@@ -106,7 +106,7 @@ class UserController extends Controller
             $users->password = Hash::make($request->password);
             $result = $users->save();
 
-            if($request->profile_picture->getClientOriginalName()){
+            if($request->hasFile('profile_picture')){
 
                 //upload profile picture
                 $imageName = $users->id.'_'.$request->profile_picture->getClientOriginalName();
@@ -170,7 +170,7 @@ class UserController extends Controller
             $users->role_id = $request->role_id;
             $result = $users->save();
 
-            if ($request->profile_picture->getClientOriginalName()) {
+            if ($request->hasFile('profile_picture')) {
 
                 //upload profile picture
                 $imageName = $id . '_' . $request->profile_picture->getClientOriginalName();

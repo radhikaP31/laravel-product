@@ -37,4 +37,13 @@ class Blogs extends Model
     {
         return $this->belongsTo(User::class,'user_id','id');
     }
+
+    /**
+     * set name 
+     * @param $value string
+     */
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = ucwords($value);
+    }
 }

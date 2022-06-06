@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
@@ -60,4 +61,47 @@ class User extends Authenticatable
         return $this->hasMany(Blogs::class);
     }
 
+    /**
+     * set name 
+     * @param $value string
+     */
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = ucwords($value);
+    }
+
+    // /**
+    //  * get date of birth 
+    //  * @param $value string
+    //  */
+    // public function getDateOfBirthAttribute($value)
+    // {
+    //     dd($value);
+    //     return date("d-M-Y", strtotime($value));
+    // }
+
+    /**
+     * Get the user's name.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => ucwords($value),
+            set: fn ($value) => ucwords($value),
+        );
+    }
+
+    /**
+     * Get the date of birth
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function dateOfBirth(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => date("d-M-Y", strtotime($value)),
+        );
+    }
 }

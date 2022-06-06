@@ -15,10 +15,9 @@ class BlogsController extends Controller
      */
     public function index()
     {
-        DB::enableQueryLog();
 
         $blogs = Blogs::with('user')->paginate(5);
-        //  dd($blogs);
+
         return view('blog.index', [
             'blogs' => $blogs
         ]);
@@ -64,7 +63,7 @@ class BlogsController extends Controller
             $blogs->image = $_FILES['image']['name'];
             $result = $blogs->save();
 
-            if ($request->image->getClientOriginalName()) {
+            if ($request->hasFile('image')) {
 
                 //upload profile picture
                 $imageName = $blogs->id . '_' . $request->image->getClientOriginalName();
@@ -117,7 +116,7 @@ class BlogsController extends Controller
             $blogs->image = $_FILES['image']['name'];
             $result = $blogs->save();
 
-            if ($request->image->getClientOriginalName()) {
+            if ($request->hasFile('image')) {
 
                 //upload profile picture
                 $imageName = $id . '_' . $request->image->getClientOriginalName();

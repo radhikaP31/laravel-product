@@ -61,13 +61,8 @@ Route::get('/csrf', function (Request $request) {
     return 'Token -> '.$token;
 });
 
-//test csrf token
-Route::get('/login', function () {
-    return view('login');
-});
-
 //Route group for UserController
-Route::controller(UserController::class)->group(function () {
+Route::controller(UserController::class)->middleware(['auth'])->group(function () {
 
     Route::get('/users', 'index')->name('user_index'); //Display all users
     Route::get('/users/view/{id}', 'view'); //Display user profile by user id
@@ -80,7 +75,7 @@ Route::controller(UserController::class)->group(function () {
 });
 
 //Route group for BlogsController
-Route::controller(BlogsController::class)->group(function () {
+Route::controller(BlogsController::class)->middleware(['auth'])->group(function () {
     //Route::controller(BlogsController::class)->group(['middleware' => 'Authenticate'],function () {
 
     Route::get('/blogs', 'index')->name('blog_index'); //Display all blogs
@@ -92,12 +87,12 @@ Route::controller(BlogsController::class)->group(function () {
 });
 
 //Route group for LoginController
-Route::controller(LoginController::class)->group(function () {
+// Route::controller(LoginController::class)->group(function () {
 
-    Route::get('/login', 'index')->name('login'); //Login form
-    Route::any('/login/authenticate', 'authenticate')->name('login_auth'); //Login form
+//     Route::get('/login', 'index')->name('login'); //Login form
+//     Route::any('/login/authenticate', 'authenticate')->name('login_auth'); //Login form
 
-});
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');

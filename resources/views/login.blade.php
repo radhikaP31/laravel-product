@@ -1,5 +1,5 @@
 <x-header componentName="John" />
-<div class="container" style="margin-top: 5%;">
+<div class="container" >
     <div class="col-md-12 content">
         <h3>Create User</h3>
         <table class="center">
