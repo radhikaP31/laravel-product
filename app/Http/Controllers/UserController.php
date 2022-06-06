@@ -102,7 +102,6 @@ class UserController extends Controller
             $users->about = $request->about;
             $users->rating = $request->rating;
             $users->role_id = $request->role_id;
-            $users->profile_picture = $request->profile_picture->getClientOriginalName();
             $users->password = Hash::make($request->password);
             $result = $users->save();
 

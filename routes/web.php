@@ -79,7 +79,7 @@ Route::controller(BlogsController::class)->middleware(['auth'])->group(function 
     //Route::controller(BlogsController::class)->group(['middleware' => 'Authenticate'],function () {
 
     Route::get('/blogs', 'index')->name('blog_index'); //Display all blogs
-    Route::get('/blogs/view/{id}', 'view')->name('blog_view'); //Display blog by blog id
+    Route::get('/blogs/show/{id}', 'show')->name('blog_view'); //Display blog by blog id
     Route::any('/blogs/add', 'add')->name('blog_add'); //Create blog
     Route::any('/blogs/edit/{id}', 'edit')->name('blog_edit'); //Edit blog by blog id
     Route::any('/blogs/delete/{id}', 'delete')->name('blog_delete'); //Delete blog by blog id

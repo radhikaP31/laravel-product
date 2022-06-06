@@ -6,8 +6,9 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="container" >
+        <div class="container">
             <div class="col-md-12 content">
+                @can('view', $blog)
                 <h1>{{ $blog->name }}</h1>
                 <table class="center">
                     <tbody>
@@ -40,6 +41,12 @@
 
                     </tbody>
                 </table>
+                @elsecan('create', App\Models\Blogs::class)
+                    <p>Please Create new Blog..</p>
+                @else
+                    <p> Not Permitted..</p>
+                @endcan
+
             </div>
         </div>
     </div>

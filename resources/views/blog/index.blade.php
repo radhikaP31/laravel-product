@@ -31,7 +31,7 @@
 
                         <tr>
                             <td>
-                                <a href="/blogs/view/{{ $blog->id }}" class="btn btn-xs">
+                                <a href="/blogs/show/{{ $blog->id }}" class="btn btn-xs">
                                     <span><i class="fa fa-eye"></i></span>
                                 </a>
                                 <a href="/blogs/edit/{{ $blog->id }}" class="btn btn-xs">

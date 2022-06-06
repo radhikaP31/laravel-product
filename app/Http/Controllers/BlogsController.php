@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Blogs;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class BlogsController extends Controller
@@ -15,7 +16,6 @@ class BlogsController extends Controller
      */
     public function index()
     {
-
         $blogs = Blogs::with('user')->paginate(5);
 
         return view('blog.index', [
@@ -30,7 +30,7 @@ class BlogsController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function view($id)
+    public function show($id)
     {
 
         return view('blog.view', [
@@ -100,20 +100,21 @@ class BlogsController extends Controller
      */
     public function edit(Request $request, $id)
     {
+        $blogs = Blogs::findOrFail($id);
+        
+        $this->authorize('update', $blogs);
+
         if ($request->method() == 'POST') {
 
             $validated = $request->validate([
                 'user_id' => 'required',
                 'name' => 'required|max:255',
                 'description' => 'required|max:255',
-                'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
             ]);
 
-            $blogs = Blogs::find($id);
             $blogs->name = $request->name;
             $blogs->description = $request->description;
             $blogs->user_id = $request->user_id;
-            $blogs->image = $_FILES['image']['name'];
             $result = $blogs->save();
 
             if ($request->hasFile('image')) {
@@ -141,7 +142,7 @@ class BlogsController extends Controller
             $users = DB::table('users')->get();
 
             return view('blog.edit', [
-                'blog' => Blogs::findOrFail($id),
+                'blog' => $blogs,
                 'users' => $users,
             ]);
         }
