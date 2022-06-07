@@ -9,9 +9,29 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use App\Repositories\UserRepository;
  
 class UserController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param  UserRepository  $users
+     * @return void
+     */
+    public function __construct(UserRepository $users)
+    {
+        $this->users = $users;
+    }
+
+    /**
+     * The user repository implementation.
+     *
+     * @var UserRepository
+     */
+
 
     /**
      * get all user data
@@ -22,9 +42,8 @@ class UserController extends Controller
     {
         try {
 
-            $users = User::paginate(5);
             return view('user.index', [
-                'users' => $users
+                'users' => $this->users->all() //call repository method
             ]);
             
         } catch(ModelNotFoundException $exception) {
@@ -54,7 +73,7 @@ class UserController extends Controller
         try {
 
             return view('user.profile', [
-                'user' => User::findOrFail($id)
+                'user' => $this->users->getUserById($id)
             ]);
             
         } catch(ModelNotFoundException $exception) {
@@ -119,6 +138,11 @@ class UserController extends Controller
 
             if($result){
 
+                Log::build([
+                    'driver' => 'single',
+                    'path' => storage_path('logs/custom.log'),
+                ])->info('User Created: ' . $users->id);
+
                 $request->session()->flash('success', 'User saved!!');
                 return redirect()->route('user_index');
 
@@ -175,7 +199,7 @@ class UserController extends Controller
                 $imageName = $id . '_' . $request->profile_picture->getClientOriginalName();
                 $request->profile_picture->storeAs('public/images/users', $imageName);
 
-                $user_data = User::find($id);
+                $user_data = $this->users->getUserById($id);
                 $user_data->profile_picture = $imageName;
                 $result = $user_data->save();
             }
@@ -214,7 +238,7 @@ class UserController extends Controller
     public function delete(Request $request, $id)
     {
 
-        $users = User::find($id);
+        $users = $this->users->getUserById($id);
         $status = $users->delete();
 
         $request->session()->flash('success', 'User deleted!!');

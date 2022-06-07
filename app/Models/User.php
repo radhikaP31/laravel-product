@@ -70,16 +70,6 @@ class User extends Authenticatable
         $this->attributes['name'] = ucwords($value);
     }
 
-    // /**
-    //  * get date of birth 
-    //  * @param $value string
-    //  */
-    // public function getDateOfBirthAttribute($value)
-    // {
-    //     dd($value);
-    //     return date("d-M-Y", strtotime($value));
-    // }
-
     /**
      * Get the user's name.
      *

@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\LoginController;
+use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -61,9 +63,13 @@ Route::get('/csrf', function (Request $request) {
     return 'Token -> '.$token;
 });
 
+//call repository in route
+Route::get('/get-user-repo', function (UserRepository $user) {
+    return $user->all();
+})->middleware(['auth'])->name('getUserData');
+
 //Route group for UserController
 Route::controller(UserController::class)->middleware(['auth'])->group(function () {
-
     Route::get('/users', 'index')->name('user_index'); //Display all users
     Route::get('/users/view/{id}', 'view'); //Display user profile by user id
     Route::any('/users/add', 'add'); //Create user profile
