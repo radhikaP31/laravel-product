@@ -4,11 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Blogs;
-use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Repositories\UserRepository;
+use App\Jobs\QueueJob;
 
 class BlogsController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param  UserRepository  $users
+     * @return void
+     */
+    public function __construct(UserRepository $users)
+    {
+        $this->users = $users;
+    }
+
     /**
      * get all blog data
      *
@@ -75,6 +88,10 @@ class BlogsController extends Controller
             }
 
             if ($result) {
+
+                $user = $this->users->getUserById($request->user_id);
+
+                QueueJob::dispatch($user->email); 
 
                 $request->session()->flash('success', 'Blog saved!!');
                 return redirect()->route('blog_index');

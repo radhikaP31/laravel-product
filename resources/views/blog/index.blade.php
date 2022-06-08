@@ -16,6 +16,7 @@
                 @endif
                 <a href="/blogs/add" class="btn btn-primary-color float-right">New Blog</a>
                 <h3>Blogs</h3>
+                @if(isset($blogs))
                 <table class="center">
                     <thead>
                         <tr>
@@ -62,6 +63,7 @@
                 <div style="margin-top: 2%;">
                     {{$blogs->links()}}
                 </div>
+                @endif
             </div>
         </div>
     </div>
