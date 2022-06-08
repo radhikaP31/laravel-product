@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use App\Repositories\UserRepository;
 use App\Events\SendEmailToUser;
+use Notification;
+use App\Notifications\EmailNotification;
  
 class UserController extends Controller
 {
@@ -181,7 +183,6 @@ class UserController extends Controller
                 'name' => 'required|max:255',
                 'email' => 'required|email:rfc',
                 'date_of_birth' => 'required',  
-                'profile_picture' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
                 'username' => 'required',
             ]);
 
@@ -208,6 +209,19 @@ class UserController extends Controller
             }
             
             if($result){
+
+                $user = $this->users->getUserById($id);
+
+                $message = [
+                    'greeting' => 'Hi ' . $user->name . ',',
+                    'body' => 'This is the edit notification.',
+                    'thanks' => 'Thank you for register!! You just edited your profile. Kindly share your review to us!! Hope You like our App:)',
+                    'actionText' => 'View Profile',
+                    'actionURL' => url('/users/edit/'.$id),
+                    'id' => $id
+                ];
+
+                Notification::send($user, new EmailNotification($message));
 
                 $request->session()->flash('success', 'User updated!!');
                 return redirect()->route('user_index');
