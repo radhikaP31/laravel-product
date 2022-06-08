@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use App\Repositories\UserRepository;
+use App\Events\SendEmailToUser;
  
 class UserController extends Controller
 {
@@ -135,6 +136,8 @@ class UserController extends Controller
                 $result = $user_data->save();
 
             }
+
+            event (new SendEmailToUser($users->email));
 
             if($result){
 

@@ -44,7 +44,7 @@
                             <td>{{ $blog->id }}</td>
                             <td>{{ $blog->user['name'] }}</td>
                             <td>{{ $blog->name }}</td>
-                            @if (file_exists(public_path('storage/images/blogs/'.$blog->image)))
+                            @if ($blog->image && file_exists(public_path('storage/images/blogs/'.$blog->image)))
                             <td>
                                 <a href="{{ asset('storage/images/blogs/'.$blog->image) }}" target="_blank">
                                     <img src="{{ asset('storage/images/blogs/'.$blog->image) }}" alt="{{$blog->name}}" width="160px" height="100px" />

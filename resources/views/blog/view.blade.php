@@ -28,7 +28,7 @@
                             <td>Description</td>
                             <td><?= $blog->description; ?></td>
                         </tr>
-                        @if (file_exists(public_path('storage/images/blogs/'.$blog->image)))
+                        @if ($blog->image && file_exists(public_path('storage/images/blogs/'.$blog->image)))
                         <tr>
                             <td><label>Image:</label></td>
                             <td>
@@ -42,9 +42,9 @@
                     </tbody>
                 </table>
                 @elsecan('create', App\Models\Blogs::class)
-                    <p>Please Create new Blog..</p>
+                <p>Please Create new Blog..</p>
                 @else
-                    <p> Not Permitted..</p>
+                <p> Not Permitted..</p>
                 @endcan
 
             </div>

@@ -50,7 +50,7 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->date_of_birth }}</td>
                             <td>{{ $user->gender == 'm' ? 'Male' : 'Female'; }}</td>
-                            @if (file_exists(public_path('storage/images/users/'.$user->profile_picture)))
+                            @if ($user->profile_picture && file_exists(public_path('storage/images/users/'.$user->profile_picture)))
                             <td>
                                 <a href="{{ asset('storage/images/users/'.$user->profile_picture) }}" target="_blank">
                                     <img src="{{ asset('storage/images/users/'.$user->profile_picture) }}" alt="{{$user->name}}" width="160px" height="100px" />
