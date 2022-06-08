@@ -17,16 +17,16 @@ class SendEmailToUser implements ShouldQueue
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     
-    public $email;
+    public $user_id;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($email)
+    public function __construct($user_id)
     {
-        $this->email = $email;
+        $this->user_id = $user_id;
     }
     /**
      * Get the channels the event should broadcast on.

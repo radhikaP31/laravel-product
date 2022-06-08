@@ -137,7 +137,7 @@ class UserController extends Controller
 
             }
 
-            event (new SendEmailToUser($users->email));
+            event (new SendEmailToUser($users->id));
 
             if($result){
 
