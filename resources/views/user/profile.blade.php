@@ -9,6 +9,7 @@
         <div class="container">
             <div class="col-md-12 content">
                 <h1>{{ $user->name }}</h1>
+                <a href="/users" class="btn btn-primary-color float-right">Back</a>
                 <table class="center">
                     <tbody>
                         <tr>

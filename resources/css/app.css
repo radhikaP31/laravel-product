@@ -52,7 +52,7 @@ a {
 a:hover,
 a:focus,
 a:active  {
-    color:#2a6496;
+    color:#ffffff;
     transition:all 0.2s ease-out;
 }
 
@@ -120,4 +120,17 @@ td:last-child, th:last-child {
     background: #ffffff;
     border-radius: 0.4rem;
     box-shadow: 0 7px 14px 0 rgb(60 66 87 / 10%), 0 3px 6px 0 rgb(0 0 0 / 7%);
+}
+
+.product_image{
+    height: 165px;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+
+.product_action{
+    display: flex;
+    align-items: center; 
+    justify-content: center;
 }

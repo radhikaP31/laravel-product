@@ -10,6 +10,7 @@
             <div class="col-md-12 content">
                 @can('view', $blog)
                 <h1>{{ $blog->name }}</h1>
+                <a href="/blogs" class="btn btn-primary-color float-right">Back</a>
                 <table class="center">
                     <tbody>
                         <tr>

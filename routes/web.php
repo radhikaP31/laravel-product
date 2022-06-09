@@ -7,7 +7,12 @@ use App\Http\Middleware\CheckRole;
 use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogsController;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\OrderItemController;
+use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\ProductsController;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -77,32 +82,63 @@ Route::controller(UserController::class)->middleware(['auth'])->group(function (
     Route::any('/users/delete/{id}', 'delete'); //Delete user profile by user id
     
     Route::get('/practice/{name}', 'practice'); //Display practice data
-
 });
 
 //Route group for BlogsController
 Route::controller(BlogsController::class)->middleware(['auth'])->group(function () {
-    //Route::controller(BlogsController::class)->group(['middleware' => 'Authenticate'],function () {
-
     Route::get('/blogs', 'index')->name('blog_index'); //Display all blogs
     Route::get('/blogs/show/{id}', 'show')->name('blog_view'); //Display blog by blog id
     Route::any('/blogs/add', 'add')->name('blog_add'); //Create blog
     Route::any('/blogs/edit/{id}', 'edit')->name('blog_edit'); //Edit blog by blog id
     Route::any('/blogs/delete/{id}', 'delete')->name('blog_delete'); //Delete blog by blog id
-
 });
 
-//Route group for LoginController
-// Route::controller(LoginController::class)->group(function () {
+//Route group for ProductsController
+Route::controller(ProductsController::class)->middleware(['auth'])->group(function () {
+    Route::get('/products', 'index')->name('products_index'); //Display all products
+    Route::get('/products/view/{id}', 'view')->name('products_view'); //Display product by id
+    Route::any('/products/add', 'add')->name('products_add'); //Create product
+    Route::any('/products/edit/{id}', 'edit')->name('products_edit'); //Edit product by id
+    Route::any('/products/delete/{id}', 'delete')->name('products_delete'); //Delete product by id
 
-//     Route::get('/login', 'index')->name('login'); //Login form
-//     Route::any('/login/authenticate', 'authenticate')->name('login_auth'); //Login form
 
-// });
+    Route::any('/dashboard', 'productList')->name('dashboard'); //Display all products
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+    // Route::get('/dashboard',
+    //     function () {
+    //         return view('dashboard');
+    //     }
+    // )->middleware(['auth'])->name('dashboard');
+});
+
+//Route group for InventoryController
+Route::controller(InventoryController::class)->middleware(['auth'])->group(function () {
+    Route::get('/inventory', 'index')->name('inventory_index'); //Display all inventory
+    Route::get('/inventory/view/{id}', 'view')->name('inventory_view'); //Display inventory by id
+    Route::any('/inventory/add', 'add')->name('inventory_add'); //Create inventory
+    Route::any('/inventory/edit/{id}', 'edit')->name('inventory_edit'); //Edit inventory by id
+    Route::any('/inventory/delete/{id}', 'delete')->name('inventory_delete'); //Delete inventory by id
+});
+
+//Route group for CartController
+Route::controller(CartController::class)->middleware(['auth'])->group(function () {
+    //
+});
+
+//Route group for OrdersController
+Route::controller(OrdersController::class)->middleware(['auth'])->group(function () {
+    
+});
+
+//Route group for OrderItemController
+Route::controller(OrderItemController::class)->middleware(['auth'])->group(function () {
+    //
+});
+
+//Route group for InvoiceController
+Route::controller(InvoiceController::class)->middleware(['auth'])->group(function () {
+    //
+});
 
 
 //fallback route
