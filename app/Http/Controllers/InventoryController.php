@@ -40,6 +40,7 @@ class InventoryController extends Controller
             $inventory->product_id = $request->product_id;
             $inventory->quantity = $request->quantity;
             $inventory->price = $request->price;
+            $inventory->total_price = (float)$request->tax + (float)$request->price;
             $inventory->tax = $request->tax;
             $result = $inventory->save();
 
@@ -99,6 +100,7 @@ class InventoryController extends Controller
             $inventory->quantity = $request->quantity;
             $inventory->price = $request->price;
             $inventory->tax = $request->tax;
+            $inventory->total_price = (float)$request->tax + (float)$request->price;
             $result = $inventory->save();
 
             if ($result) {

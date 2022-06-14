@@ -10,6 +10,7 @@
             <div class="col-md-12 content">
                 <h1>{{ $product->p_name }}</h1>
                 <a href="/products" class="btn btn-primary-color float-right">Back</a>
+                <a href="/dashboard" class="btn btn-primary-color float-right" style="margin-right: 5px;">Home</a>
                 <table class="center">
                     <tbody>
                         <tr>

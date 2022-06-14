@@ -104,11 +104,6 @@ Route::controller(ProductsController::class)->middleware(['auth'])->group(functi
 
     Route::any('/dashboard', 'productList')->name('dashboard'); //Display all products
 
-    // Route::get('/dashboard',
-    //     function () {
-    //         return view('dashboard');
-    //     }
-    // )->middleware(['auth'])->name('dashboard');
 });
 
 //Route group for InventoryController
@@ -122,7 +117,15 @@ Route::controller(InventoryController::class)->middleware(['auth'])->group(funct
 
 //Route group for CartController
 Route::controller(CartController::class)->middleware(['auth'])->group(function () {
-    //
+    Route::get('/cart/view/{id}', 'view')->name('cart_view'); //Display cart by id
+    Route::post('/cart/add/{id}', 'add')->name('cart_add'); //Create cart
+    Route::any('/cart/updateCart', 'updateCart')->name('cart_edit'); //Edit cart by id
+    Route::any('/cart/removeProduct', 'removeProduct')->name('cart_delete'); //Delete cart item by id
+});
+
+//Route group for OrdersController
+Route::controller(OrdersController::class)->middleware(['auth'])->group(function () {
+    Route::any('orders/order', 'newOrder')->name('new_order'); //Create new order
 });
 
 //Route group for OrdersController
@@ -137,8 +140,12 @@ Route::controller(OrderItemController::class)->middleware(['auth'])->group(funct
 
 //Route group for InvoiceController
 Route::controller(InvoiceController::class)->middleware(['auth'])->group(function () {
-    //
+    // Route::any('/createPDF/{$user_id}/{$cart_item}/{$order_id}/{$invoice_id}', 'createPDF')->name('createPDF'); //get invoice pdf
 });
+
+// Route::get('/createPdf/{$user_id}/{$cart_item}/{$order_id}/{$invoice_id}', function () {
+//     return view('invoice/invoicePdf');
+// });
 
 
 //fallback route

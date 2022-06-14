@@ -10,6 +10,17 @@ class Inventory extends Model
     use HasFactory;
 
     public $table = "inventory";
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'product_id',
+        'stock',
+        'tax',
+        'price',
+    ];
 
     /**
      * Get the product that owns the inventory.

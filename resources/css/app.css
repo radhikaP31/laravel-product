@@ -52,7 +52,7 @@ a {
 a:hover,
 a:focus,
 a:active  {
-    color:#ffffff;
+    color: #2a6496;
     transition:all 0.2s ease-out;
 }
 
