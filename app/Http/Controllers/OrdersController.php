@@ -30,6 +30,7 @@ class OrdersController extends Controller
         $orders = new Orders;
         $orders->order_no = rand(10000, 99999);
         $orders->status = 'confirm';
+        $orders->user_id = $user_id;
         $order_result = $orders->save(); //add order
 
         $amount = 0;
@@ -40,6 +41,7 @@ class OrdersController extends Controller
             //insert order items
             $order_item = new OrderItem;
             $order_item->user_id = $user_id;
+            $order_item->cart_id = $item->id;
             $order_item->order_id = $orders->id;
             $order_item->product_id = $item->product_id;
             $order_item->quantity = $item->quantity;
@@ -83,13 +85,4 @@ class OrdersController extends Controller
 
     }
 
-    public function downloadTest(){
-        header("Content-type:application/pdf");
-
-        $pdf = Pdf::loadView('invoice/invoicePdf', [
-            'title' => 'Welcome to Tutsmake.com',
-            'date' => date('m/d/Y')
-        ]);
-        return $pdf->download('invoice.pdf');
-    }
 }

@@ -33,4 +33,12 @@ class Invoice extends Model
         return $this->belongsTo(Orders::class, 'order_id', 'id');
     }
 
+    /**
+     * Get the invoice that owns the user.
+     */
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
 }

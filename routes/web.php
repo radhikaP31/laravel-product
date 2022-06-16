@@ -117,7 +117,7 @@ Route::controller(InventoryController::class)->middleware(['auth'])->group(funct
 
 //Route group for CartController
 Route::controller(CartController::class)->middleware(['auth'])->group(function () {
-    Route::get('/cart/view/{id}', 'view')->name('cart_view'); //Display cart by id
+    Route::get('/cart', 'view')->name('cart_view'); //Display cart by id
     Route::post('/cart/add/{id}', 'add')->name('cart_add'); //Create cart
     Route::any('/cart/updateCart', 'updateCart')->name('cart_edit'); //Edit cart by id
     Route::any('/cart/removeProduct', 'removeProduct')->name('cart_delete'); //Delete cart item by id
@@ -128,25 +128,12 @@ Route::controller(OrdersController::class)->middleware(['auth'])->group(function
     Route::any('orders/order', 'newOrder')->name('new_order'); //Create new order
 });
 
-//Route group for OrdersController
-Route::controller(OrdersController::class)->middleware(['auth'])->group(function () {
-    
-});
-
-//Route group for OrderItemController
-Route::controller(OrderItemController::class)->middleware(['auth'])->group(function () {
-    //
-});
-
 //Route group for InvoiceController
 Route::controller(InvoiceController::class)->middleware(['auth'])->group(function () {
-    // Route::any('/createPDF/{$user_id}/{$cart_item}/{$order_id}/{$invoice_id}', 'createPDF')->name('createPDF'); //get invoice pdf
+    Route::get('/invoice/index', 'index')->name('invoice_index'); //display invoice
+    Route::get('/invoice/changeStatus/{status}/{id}', 'changeStatus')->name('invoice_status'); //change invoice status
+    Route::get('/invoice/view/{id}', 'view')->name('invoice_view'); //Display invoice by id
 });
-
-// Route::get('/createPdf/{$user_id}/{$cart_item}/{$order_id}/{$invoice_id}', function () {
-//     return view('invoice/invoicePdf');
-// });
-
 
 //fallback route
 Route::fallback(function () {

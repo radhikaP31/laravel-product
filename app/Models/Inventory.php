@@ -29,4 +29,12 @@ class Inventory extends Model
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
+
+    /**
+     * Get the product that owns the inventory.
+     */
+    public function orderItem()
+    {
+        return $this->hasMany(OrderItem::class, 'product_id', 'product_id');
+    }
 }

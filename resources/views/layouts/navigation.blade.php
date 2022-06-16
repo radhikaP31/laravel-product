@@ -27,12 +27,15 @@
                     <x-nav-link :href="route('inventory_index')" :active="request()->routeIs('inventory_index')">
                         {{ __('Inventory') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('invoice_index')" :active="request()->routeIs('inventory_index')">
+                        {{ __('Orders') }}
+                    </x-nav-link>
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <x-nav-link :href="route('cart_view',Auth::user()->id)" :active="request()->routeIs('cart_view')" style="margin-right: 1rem;">
+                <x-nav-link :href="route('cart_view')" :active="request()->routeIs('cart_view')" style="margin-right: 1rem;">
                     {{ __('Cart') }}
                 </x-nav-link>
                 <x-dropdown align="right" width="48">

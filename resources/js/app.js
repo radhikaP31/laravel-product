@@ -26,10 +26,18 @@ $(document).ready(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (data) {
-                var total = quantity*price;
-                $('.amount-' + product_id).html(parseFloat(total).toFixed(2));
-                $('.total-amount').html(data.total_amount);
-                $('.total-quantity').html('Total Cart Item(s): ' + data.total_quantity);
+
+                if(data.success) {
+                    
+                    var total = quantity*price;
+                    $('.amount-' + product_id).html(parseFloat(total).toFixed(2));
+                    $('.total-amount').html(data.total_amount);
+                    $('.total-quantity').html('Total Cart Item(s): ' + data.total_quantity);
+                    
+                } else {
+
+                    $('.qty-error-' + product_id).html('<span style="color:red;">Only ' + response.quantity + ' items left!!</span>');
+                }
             },
             error: function (response) {
             }
@@ -40,7 +48,6 @@ $(document).ready(function () {
     $('.remove').on('click', function (e) {
         e.preventDefault();
         var product_id = $(this).attr("data-product_id");
-        console.log(product_id);
         $.ajax({
             url: BASE_URL + "/cart/removeProduct",
             method: 'POST',
@@ -57,6 +64,28 @@ $(document).ready(function () {
             }
         });
 
+    });
+
+    $(".qty").keyup(function () {
+
+        var id = $(this).attr("data-product_id");
+        var quantity = $(this).attr("data-qty");
+        var max = parseInt($(this).attr('max'));
+        var min = parseInt($(this).attr('min'));
+
+        $('.submit-' + id).removeAttr("disabled");
+        $('.place-order').removeAttr("disabled");
+
+        if ($(this).val() > max) {
+            $('.submit-' + id).prop('disabled', true);
+            $('.place-order').prop('disabled', true);
+
+            $('.qty-error-' + id).html('<span style="color:red;">Only ' + quantity +' items left!!</span>');
+            
+        } else if ($(this).val() < min) {
+            $('.submit-' + id).prop('disabled', true);
+            $('.place-order').prop('disabled', true);
+        }
     });
  
 });

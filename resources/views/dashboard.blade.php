@@ -36,11 +36,12 @@
                             </small>
                         </li>
                         <li class="list-group-item">
+                            <p name="error" class="qty-error-{{$product->id}}" style="    height: 25px;"></p>
                             <form method="post" action="/cart/add/{{$product->id}}" enctype="multipart/form-data">
                                 @csrf
-                                <input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" style="width: 40%;height: 0%;">
+                                <input type="number" step="1" min="1" max="{{$product->inventory['quantity']}}" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" style="width: 40%;height: 0%;" data-product_id="{{$product->id}}" data-qty="{{$product->inventory['quantity']}}">
                                 <input type="hidden" name="total_price" value="{{$product->inventory['total_price']}}">
-                                <button type="submit" class="btn btn-primary-color">Add to Cart</button>
+                                <button type="submit" class="btn btn-primary-color submit-{{$product->id}}">Add to Cart</button>
                             </form>
 
                         </li>

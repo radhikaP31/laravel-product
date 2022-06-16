@@ -44,4 +44,20 @@ class OrderItem extends Model
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
+
+    /**
+     * Get the cart that owns the order item.
+     */
+    public function cart()
+    {
+        return $this->belongsTo(Cart::class, 'cart_id', 'id');
+    }
+
+    /**
+     * Get the cart that owns the order item.
+     */
+    public function inventory()
+    {
+        return $this->belongsTo(Inventory::class, 'product_id', 'product_id');
+    }
 }

@@ -52,7 +52,8 @@
                             </div>
                         </div>
                         <div class="counter">
-                            <input type="number" step="1" min="1" max="" name="cart_quantity" value="{{$item->quantity}}" title="Qty" class="input-text qty text cart_quantity" size="4" style="height: 0%;width: 90%;" data-price="{{$item->inventory['total_price']}}" data-product_id="{{$item->product['id']}}">
+                            <p name="error" class="qty-error-{{$item->product['id']}}" style="    height: 25px;"></p>
+                            <input type="number" step="1" min="1" max="{{$item->inventory['quantity']}}" name="cart_quantity" value="{{$item->quantity}}" title="Qty" class="input-text qty text cart_quantity" size="4" style="height: 0%;width: 90%;" data-price="{{$item->inventory['total_price']}}" data-product_id="{{$item->product['id']}}" data-qty="{{$item->inventory['quantity']}}">
                         </div>
                         <div class="prices">
                             <div class="amount amount-{{$item->product['id']}}">
@@ -79,7 +80,7 @@
                             </div>
                             <form method="post" action="/orders/order" enctype="multipart/form-data">
                                 @csrf
-                                <button type="submit" class="button btn btn-primary-color" >Place Order</button>
+                                <button type="submit" class="button btn btn-primary-color place-order">Place Order</button>
                             </form>
 
                         </div>

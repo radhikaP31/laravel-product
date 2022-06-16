@@ -62,6 +62,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the invoice for the user.
+     */
+    public function invoice()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
+    /**
      * set name 
      * @param $value string
      */

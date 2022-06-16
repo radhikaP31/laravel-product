@@ -108,16 +108,33 @@ class CartController extends Controller
 
         $total_price = $request->quantity * $request->price;
 
-        Cart::where('user_id', $user_id)->where('product_id', $product_id)->where('is_deleted', 0)->where('status', 'pending')->update(['quantity' => $request->quantity,'total_price' => $total_price]);
+        if(!$request->quantity) {
+            $request->quantity = 1;
+        }
+        $left_quantity = Inventory::where('is_deleted', 0)->where('product_id', $product_id)->first();
 
-        $total = Cart::join('inventory', 'cart.product_id', '=', 'inventory.product_id')
+        if($left_quantity->quantity >= $request->quantity){
+
+            Cart::where('user_id', $user_id)
+            ->where('product_id', $product_id)
+            ->where('is_deleted', 0)
+            ->where('status', 'pending')
+            ->update(['quantity' => $request->quantity, 'total_price' => $total_price]);
+
+            $total = Cart::join('inventory', 'cart.product_id', '=', 'inventory.product_id')
             ->select(Cart::raw("SUM(cart.total_price) as total_amount"), Cart::raw("SUM(cart.quantity) as total_quantity"))
             ->where('cart.is_deleted', 0)
             ->where('cart.status', 'pending')
             ->where('cart.user_id', $user_id)
             ->first();
 
-        $result = ['total_amount' => $total->total_amount, 'total_quantity' => $total->total_quantity ];
+            $result = ['total_amount' => $total->total_amount, 'total_quantity' => $total->total_quantity, 'success' => true];
+            
+        }else{
+            
+            $result = ['success' => false];
+            
+        }
         return $result;
     }
 
@@ -137,8 +154,8 @@ class CartController extends Controller
         Cart::where('user_id', $user_id)->where('product_id', $product_id)->where('is_deleted', 0)->where('status', 'pending')->update(['is_deleted' => 1]);
 
         //Update Inventory
-        $quantity = Inventory::select('quantity')->where('product_id', $product_id)->where('is_deleted', 0)->first();
-        Inventory::where('product_id', $product_id)->where('is_deleted', 0)->update(['quantity' => $quantity]);
+        // $quantity = Inventory::select('quantity')->where('product_id', $product_id)->where('is_deleted', 0)->first();
+        // Inventory::where('product_id', $product_id)->where('is_deleted', 0)->update(['quantity' => $quantity]);
 
         return true;
     }
