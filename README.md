@@ -68,5 +68,5 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 1. Clone project with git clone command
 2. Install Composer with: composer install
 3. Make sure your php version is ^8.0 because It's uses laravel 9 which required php version ^8.0
-4. Run php artisan serve
-5. 
+4. Run migrations
+5. Run php artisan serve
