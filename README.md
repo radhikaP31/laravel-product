@@ -62,3 +62,11 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+## Installation Steps
+1. Clone project with git clone command
+2. Install Composer with: composer install
+3. Make sure your php version is ^8.0 because It's uses laravel 9 which required php version ^8.0
+4. Run php artisan serve
+5. 

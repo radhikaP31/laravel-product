@@ -30,10 +30,12 @@ class InvoiceController extends Controller
 
             $orders = Invoice::with(['users','orders'])
                 ->where('user_id', $user_id)
+                ->orderBy('id', 'desc')
                 ->paginate(10);
         } else {
 
             $orders = Invoice::with(['users', 'orders'])
+            ->orderBy('id', 'desc')
                 ->paginate(10);
         }
 
@@ -87,20 +89,23 @@ class InvoiceController extends Controller
 
         Storage::put('/public/invoice/'. $invoice_id . '_invoice.pdf', $pdfContent->output());
         
-        //send order email
-        $message = [
-            'greeting' => 'Hi ' . $user->name . ',',
-            'body' => 'This is the order confirmation notification.',
-            'thanks' => 'Thank you for register!! You just order.Please refer attechment for invoice.Kindly share your review to us!! Hope You like our App:)',
-            'actionText' => 'View Order',
-            'actionURL' => url('/invoice/view/' . $order_id),
-            'id' => $user_id,
-            'attach_url' => storage_path('app/public/invoice/' . $invoice_id . '_invoice.pdf'),
-            'attach_as' => $invoice_id . '_invoice.pdf',
-            'attach_type' => 'application/pdf',
-        ];
+        if($user->email){
 
-        $mail =  Notification::send($user, new OrderNotification($message));
+            //send order email
+            $message = [
+                'greeting' => 'Hi ' . $user->name . ',',
+                'body' => 'This is the order confirmation notification.',
+                'thanks' => 'Thank you for register!! You just order.Please refer attachment for invoice. Kindly share your review to us!! Hope You like our App:)',
+                'actionText' => 'View Order',
+                'actionURL' => url('/invoice/view/' . $order_id),
+                'id' => $user_id,
+                'attach_url' => storage_path('app/public/invoice/' . $invoice_id . '_invoice.pdf'),
+                'attach_as' => $invoice_id . '_invoice.pdf',
+                'attach_type' => 'application/pdf',
+            ];
+    
+            $mail =  Notification::send($user, new OrderNotification($message));
+        }
 
         return $pdfContent->download($invoice_id . '_invoice.pdf');
     }
@@ -114,9 +119,10 @@ class InvoiceController extends Controller
      */
     public function changeStatus(Request $request, $status='unpaid', $id) {
 
+        // dd($_SERVER);
         Invoice::where('id', $id)->update(['status' => $status]);
 
-        $request->session()->flash('success', 'Status changed!!');
+        $request->session()->flash('success', 'Payment successful!!');
 
         return redirect()->route('invoice_index');
     }

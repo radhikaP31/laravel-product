@@ -29,7 +29,7 @@ class BlogsController extends Controller
      */
     public function index()
     {
-        $blogs = Blogs::with('user')->paginate(5);
+        $blogs = Blogs::with('user')->orderBy('id', 'desc')->paginate(5);
 
         return view('blog.index', [
             'blogs' => $blogs

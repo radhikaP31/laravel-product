@@ -15,7 +15,7 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $inventory = Inventory::with('product')->paginate(5);
+        $inventory = Inventory::with('product')->orderBy('id', 'desc')->paginate(5);
         return view('inventory.index', [
             'inventories' => $inventory
         ]);

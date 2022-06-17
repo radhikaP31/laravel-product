@@ -75,7 +75,7 @@ class OrdersController extends Controller
 
             $request->session()->flash('success', 'Order Place Successfully!! Please check you mail for details!!');
 
-            return redirect('/dashboard');
+            return redirect()->route('stripe_post',[$invoice->id]);
     
         } else {
 

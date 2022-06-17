@@ -13,6 +13,8 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\StripeController;
+use App\Http\Controllers\WebhookController;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -133,6 +135,17 @@ Route::controller(InvoiceController::class)->middleware(['auth'])->group(functio
     Route::get('/invoice/index', 'index')->name('invoice_index'); //display invoice
     Route::get('/invoice/changeStatus/{status}/{id}', 'changeStatus')->name('invoice_status'); //change invoice status
     Route::get('/invoice/view/{id}', 'view')->name('invoice_view'); //Display invoice by id
+});
+
+//Route group for StripeController
+Route::controller(StripeController::class)->middleware(['auth'])->group(function () {
+    Route::any('/stripe/{id}', 'stripe')->name('stripe_form'); //paymetn form
+    Route::any('/payment/{id}', 'payStripe')->name('stripe_post'); //payment
+});
+
+//Route group for WebhookController
+Route::controller(WebhookController::class)->middleware(['auth'])->group(function () {
+    Route::any('/stripeWebhook', 'stripeWebhook')->name('stripeWebhook'); //stripe webhook
 });
 
 //fallback route
