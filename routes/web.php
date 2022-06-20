@@ -10,15 +10,12 @@ use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\WebhookController;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
-
 
 /*
 |--------------------------------------------------------------------------

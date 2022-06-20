@@ -32,6 +32,8 @@ class User extends Authenticatable
         'role_id',
         'token',
         'token_generate_time',
+        'social_id',
+        'social_type'
     ];
 
     /**

@@ -30,13 +30,6 @@ class UserController extends Controller
     }
 
     /**
-     * The user repository implementation.
-     *
-     * @var UserRepository
-     */
-
-
-    /**
      * get all user data
      *
      * @return \Illuminate\View\View

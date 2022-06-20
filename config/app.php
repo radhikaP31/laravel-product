@@ -181,6 +181,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
         // Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
@@ -210,8 +211,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'PDF' => Barryvdh\DomPDF\Facade::class,
-        // 'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,  
     ])->toArray(),
 
 ];
