@@ -17,6 +17,7 @@ use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\ChatsController;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\App;
+use App\Http\Controllers\CurlsiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -151,6 +152,14 @@ Route::controller(ChatsController::class)->middleware(['auth'])->group(function 
     Route::get('/messages/{id}', 'fetchMessages')->name('fetchMessages');
     Route::post('/messages', 'sendMessage')->name('sendMessage');
 });
+
+//curl example in CurlsiteController
+Route::controller(CurlsiteController::class)->middleware(['auth'])->group(function () {
+    Route::get('curlsite', 'index')->name('get_ip');
+    Route::get('curlsite-employee/{id}', 'posts')->name('get_employee');
+    Route::any('add-employee-curlsite', 'addposts')->name('add_employee');
+});
+
 
 //fallback route
 Route::fallback(function () {
