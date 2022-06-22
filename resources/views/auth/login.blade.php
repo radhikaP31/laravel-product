@@ -49,8 +49,8 @@
             </x-button>
         </div>
 
-        <a href="{{ url('auth/redirect') }}" style="margin-top: 0px !important;background: green;color: #ffffff;padding: 5px;border-radius:7px;" class="ml-2">
-            <strong>Google Login</strong>
+        <a href="{{ url('auth/google') }}" style="margin-top: 0px !important;background: green;color: #ffffff;padding: 5px;border-radius:7px;" class="ml-2">
+            <strong>Login wuth Google</strong>
         </a>
     </form>
 </x-auth-card>

@@ -58,7 +58,7 @@
                             </td>
                             @else
                             <td>
-                                <img src="{{ asset('storage/images/no_image.png') }}" alt="{{$user->name}}" width="160px" height="100px" />
+                                <img src="{{ asset('storage/images/user_no_image.jpg') }}" alt="{{$user->name}}" width="160px" height="100px" />
                             </td>
                             @endif
 

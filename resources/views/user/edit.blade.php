@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="container" >
+        <div class="container">
             <div class="col-md-12 content">
                 <h1>Hi {{ $user->name }}</h1>
                 <table class="center">
@@ -54,7 +54,7 @@
                                     </tr>
                                     <tr>
                                         <td><label>Date of Birth:</label></td>
-                                        <td><input type="date" name="date_of_birth" value="{{ $user->date_of_birth }}" />
+                                        <td><input type="date" name="date_of_birth" value="{{ date_create($user->date_of_birth)->format('Y-m-d') }}" />
                                             @error('date_of_birth')
                                             <div class="text-red">{{ $message }}</div>
                                             @enderror

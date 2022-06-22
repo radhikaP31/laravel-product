@@ -87,5 +87,42 @@ $(document).ready(function () {
             $('.place-order').prop('disabled', true);
         }
     });
+
+    $('.sendMessage').on('click', function (e) {
+        // e.preventDefault();
+        var name = $(this).attr('data-name');
+        var message = $('.message').val();
+        var user_id = $('.user_id').val();
+        var receiver_user_id = $('.receiver_user_id').val();
+
+        $.ajax({
+            url: BASE_URL + "/messages",
+            method: 'POST',
+            data: { user_id: user_id, receiver_user_id:receiver_user_id, message: message },
+            dataType: 'JSON',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+
+                $('.message').val('');
+
+                $('.chat').append('<li class="left clearfix"><div class="chat-body clearfix" style="border: 1px solid var(--primary_color);margin: 4px;"><div class="header" style="padding:5px"><strong class="primary-font">' + name +'</strong></div><p style="padding:5px">' + message +'<br><small>2022-06-22</small></p></div></li>');
+            },
+            error: function (response) {
+            }
+        });
+
+    });
+
+
+    Echo.private('chat')
+        .listen('MessageSent', (e) => {
+            this.messages.push({
+                message: e.message.message,
+                user: e.user
+            });
+        });
+
  
 });

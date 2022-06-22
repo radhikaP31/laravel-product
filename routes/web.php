@@ -14,6 +14,7 @@ use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\WebhookController;
+use App\Http\Controllers\ChatsController;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\App;
 
@@ -100,7 +101,6 @@ Route::controller(ProductsController::class)->middleware(['auth'])->group(functi
     Route::any('/products/edit/{id}', 'edit')->name('products_edit'); //Edit product by id
     Route::any('/products/delete/{id}', 'delete')->name('products_delete'); //Delete product by id
 
-
     Route::any('/dashboard', 'productList')->name('dashboard'); //Display all products
 
 });
@@ -143,6 +143,13 @@ Route::controller(StripeController::class)->middleware(['auth'])->group(function
 //Route group for WebhookController
 Route::controller(WebhookController::class)->middleware(['auth'])->group(function () {
     Route::any('/stripeWebhook', 'stripeWebhook')->name('stripeWebhook'); //stripe webhook
+});
+
+//Route group for ChatsController
+Route::controller(ChatsController::class)->middleware(['auth'])->group(function () {
+    Route::get('/chat', 'index')->name('chat_index');
+    Route::get('/messages/{id}', 'fetchMessages')->name('fetchMessages');
+    Route::post('/messages', 'sendMessage')->name('sendMessage');
 });
 
 //fallback route

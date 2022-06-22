@@ -81,7 +81,7 @@ class UserController extends Controller
             return view('exception.relationnot');
 
         } catch(\Exception $exception){
-            dd(get_class($exception));
+
             return view('exception.somethingwrong');
 
         }
@@ -175,7 +175,6 @@ class UserController extends Controller
             $validated = $request->validate([
                 'name' => 'required|max:255',
                 'email' => 'required|email:rfc',
-                'date_of_birth' => 'required',  
                 'username' => 'required',
             ]);
 
