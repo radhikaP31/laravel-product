@@ -68,5 +68,9 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 1. Clone project with git clone command
 2. Install Composer with: composer install
 3. Make sure your php version is ^8.0 because It's uses laravel 9 which required php version ^8.0
-4. Run migrations
-5. Run php artisan serve
+4. Create .env file from .env.example file
+5. Create database and update in .env file
+6. Update your email details in .env file
+7. Run: migrations
+8. Run :php artisan serve
+9. If you want telescope then Run this in url: /telescope/jobs
