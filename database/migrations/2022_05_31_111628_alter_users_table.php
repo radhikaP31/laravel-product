@@ -18,14 +18,14 @@ return new class extends Migration
             $table->string('token')->nullable()->change();
             $table->string('token_generate_time')->nullable()->change();
             $table->string('remember_token')->nullable()->change();
-            $table->string('created_at')->nullable()->change();
-            $table->string('updated_at')->nullable()->change();
+            // $table->string('created_at')->nullable()->change();
+            // $table->string('updated_at')->nullable()->change();
         });
 
-        Schema::table('roles', function (Blueprint $table) {
-            $table->dropColumn('created');
-            $table->dropColumn('modified');
-        });
+        // Schema::table('roles', function (Blueprint $table) {
+        //     $table->dropColumn('created');
+        //     $table->dropColumn('modified');
+        // });
     }
 
     /**
